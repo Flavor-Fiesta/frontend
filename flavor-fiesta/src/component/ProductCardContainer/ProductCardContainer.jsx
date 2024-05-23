@@ -11,6 +11,7 @@ const ProductCardContainer = ({ products }) => {
           image={product.image}
           title={product.title}
           price={product.price}
+          subtitle={product.subtitle}
         />
       ))}
     </div>
