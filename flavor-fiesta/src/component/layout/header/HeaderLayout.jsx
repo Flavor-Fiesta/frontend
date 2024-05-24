@@ -3,6 +3,7 @@ import { Box, IconButton, Menu, MenuItem } from "@mui/material";
 import "./HeaderStyle.css";
 import logo from "./icons/logo.svg"; 
 import { useState } from "react";
+import DarkModeToggle from '../../DarkModeToggle/DarkModeToggle';
 import SearchIcon from "./icons/SearchIcon.svg"; 
 import DarkModeIcon from "./icons/DarkModeIcon.svg"; 
 import CartIcon from "./icons/CartIcon.svg"; 
@@ -46,6 +47,7 @@ const HeaderLayout = () => {
       </Box>
       <Box className="user-actions">
         <img src={SearchIcon} alt="Buscar" className="actionIcon" />
+        <DarkModeToggle />
         <img src={DarkModeIcon} alt="Modo Oscuro" className="actionIcon" />
         <img src={CartIcon} alt="Carrito" className="actionIcon" />
         <IconButton color="inherit" onClick={handleUserIconClick}>
