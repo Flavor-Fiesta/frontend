@@ -1,15 +1,10 @@
-/* AppRouter.css */
-/* AppRouter.css */
+/* Footer.css */
 
-.app-container {
-    padding-bottom: 60px; /* Ajusta este valor si el footer tiene diferente altura */
-  }
-  
-  .footer {
-    background-color: #f8f9fa;
+.footer {
+    background-color: #CC2D4A;
     padding: 20px;
-    width: 100%;
     position: fixed;
+    width: 100%;
     bottom: 0;
   }
   
@@ -23,17 +18,17 @@
   
   .footer-text {
     font-size: 1em;
-    color: #333;
+    color: #FFF;
   }
   
   .social-icons a {
-    color: #333;
+    color: #FFF;
     font-size: 1.5em;
     margin-left: 15px;
     text-decoration: none;
   }
   
   .social-icons a:hover {
-    color: #007bff;
+    color: #333;
   }
   
