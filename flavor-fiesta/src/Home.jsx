@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useEffect, useState } from 'react';
+import RecipeCardContainer from '../src/component/RecipeCard/RecipeCardContainer'
 import CategoriesSection from '../src/component/Categories/CategoriesSection';
 import ProductCardContainer from './component/ProductCardContainer/ProductCardContainer';
-import bannerHome from '../src/component/Categories/bannerhome.jpg'; // Importa la imagen
-
+import bannerHome from '../src/component/Categories/bannerhome.jpg';
 import './Home.css';
 
 const Home = () => {
-    const [products, setProducts] = useState([]);
+  
+  { const [products, setProducts] = useState([]);
 
     useEffect(() => {
       fetch('http://localhost:3001/products')
@@ -26,10 +26,16 @@ const Home = () => {
       <CategoriesSection />
       </div>
 
-      <h1 className="section-title">Mas Vendidos</h1>
+      <div className='recipes'>
+        <h2 className="categories-title">Mezcla y disfruta</h2>
+        <RecipeCardContainer/>
+      </div>
+
+
+      <h2 className="section-title">Mas Vendidos</h2>
       <ProductCardContainer products={products} />
     </div>
-  );
+  );}
 };
 
 export default Home;
