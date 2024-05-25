@@ -44,8 +44,14 @@ height: 24px;
 cursor: pointer;
 }
 
+.menu-button {
+  display: none;
+}
 
 @media (max-width: 768px) {
+  .menu-button {
+    display: block;
+  }
   .navLink {
     gap: 30px;
     font-size: 16px;
@@ -56,28 +62,55 @@ cursor: pointer;
     height: 22px;
   }
 }
+.navLink span:hover,
+.drawer-menu-item:hover {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
 
 @media (max-width: 480px) {
   .Navbar {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: space-between;
     padding: 10px;
   }
 
   .navLink {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
-    width: 100%;
+display: none;
+  }
+
+  .menu-button{
+    display: block;
   }
 
   .user-actions {
-    justify-content: space-between;
-    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    width: auto;
   }
 
   .actionIcon {
     width: 20px;
     height: 20px;
   }
+}
+.drawer-menu-item {
+  color: #CC2D4A;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+.drawer-menu-item:hover {
+  color: #FFFFFF;
+  background-color: #CC2D4A;
+  padding: 5px;
+  border-radius: 5px;
+}
+.drawer-menu-item:active {
+  color: #FFFFFF;
+  background-color: #CC2D4A;
+  padding: 5px;
+  border-radius: 5px;
+}
+.list-item-text {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
