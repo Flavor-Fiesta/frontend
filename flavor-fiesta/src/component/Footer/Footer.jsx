@@ -1,4 +1,3 @@
-import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faFacebook, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import './Footer.css';
@@ -7,7 +6,7 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-content">
-        <span className="footer-text">© 2024 Mi Empresa. Todos los derechos reservados.</span>
+        <span className="footer-text">© 2024 Flavor Fiesta. Todos los derechos reservados.</span>
         <div className="social-icons">
           <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
             <FontAwesomeIcon icon={faInstagram} />
