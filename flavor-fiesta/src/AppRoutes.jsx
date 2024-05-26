@@ -17,7 +17,7 @@ const AppRoutes = () => {
           <Route path="/faqs" element={null} />
           <Route path="/contact" element={null} />
           <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
+          <Route path="/signup" element={<SignUpForm />} />
         </Route>
       </Routes>
       <Footer />
