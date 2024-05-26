@@ -33,8 +33,8 @@ const LoginPage = () => {
   return (
     <div className="login-page">
       <div className="login-form">
-        <h1>Bienvenida</h1>
-        <h2>Ingresa tus datos para acceder a tu cuenta</h2>
+        <h1 className='bienvenida'>Bienvenida</h1>
+        <h2 className='ingresa-tus-datos'>Ingresa tus datos para acceder a tu cuenta</h2>
         <form onSubmit={handleLogin}>
           <div className="input-group">
             <label htmlFor="email">Correo Electrónico</label>
@@ -68,7 +68,7 @@ const LoginPage = () => {
           {error && <p className="error-message">{error}</p>}
           <button type="submit" className="login-button">Iniciar Sesión</button>
         </form>
-        <p>¿No tienes cuenta? <a href="/register">Regístrate aquí</a></p>
+        <p className='registrate'>¿No tienes cuenta? <a href="/register">Regístrate aquí</a></p>
       </div>
       <div className="login-image">
         <img src={loginImage} alt="Login" />
