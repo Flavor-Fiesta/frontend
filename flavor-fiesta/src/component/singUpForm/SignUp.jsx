@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import Img from "../../assets/chris-lee-70l1tDAI6rM-unsplash 1.jpg";
 import "./SignUp.css";
+import { Link } from "react-router-dom";
 
 const SignUp = () => {
   const {

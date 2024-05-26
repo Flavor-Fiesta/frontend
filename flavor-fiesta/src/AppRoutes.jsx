@@ -4,7 +4,7 @@ import Home from "./Home";
 import Footer from "./component/Footer/Footer";
 import Login from "./component/Login/Login";
 import "./AppRouter.css";
-import SignUpForm from "./component/singUpForm/SignUp";
+import SignUp from "./component/singUpForm/SignUp";
 
 const AppRoutes = () => {
   return (
@@ -17,7 +17,7 @@ const AppRoutes = () => {
           <Route path="/faqs" element={null} />
           <Route path="/contact" element={null} />
           <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUpForm />} />
+          <Route path="/signup" element={<SignUp />} />
         </Route>
       </Routes>
       <Footer />
