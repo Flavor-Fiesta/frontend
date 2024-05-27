@@ -64,7 +64,7 @@ cursor: pointer;
 }
 .navLink span:hover,
 .drawer-menu-item:hover {
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  color:  #8FA206;
 }
 
 @media (max-width: 480px) {
