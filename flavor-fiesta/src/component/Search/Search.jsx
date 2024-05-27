@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './search.css';
 
-const SearchComponent = () => {
+const Search = () => {
     //Setering the hooks of useState --> Seterar los hooks de useState
     const [ users, setUsers ] = useState([]);
     const [ search, setSearch ] = useState('');
@@ -52,4 +52,4 @@ const SearchComponent = () => {
   )
 }
 
-export default SearchComponent
+export default Search
