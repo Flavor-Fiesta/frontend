@@ -26,8 +26,8 @@ const SignUp = () => {
               type="text"
               {...register("nombre", {
                 required: true,
-                minLength: 10,
-                maxLength: 50,
+                minLength: 5,
+                maxLength: 30,
               })}
               id="nombre"
               placeholder="Enter your name"
@@ -36,10 +36,56 @@ const SignUp = () => {
               <p>El campo nombre es requerido</p>
             )}
             {errors.nombre?.type === "minLength" && (
-              <p>El campo nombre debe tener al menos 10 caracteres</p>
+              <p>El campo nombre debe tener al menos 5 caracteres</p>
             )}
             {errors.nombre?.type === "maxLength" && (
-              <p>El campo nombre debe tener menos de 50 caracteres</p>
+              <p>El campo nombre debe tener menos de 30 caracteres</p>
+            )}
+          </div>
+          <div className="form-group">
+            <label htmlFor="apellido">Apellido</label>
+            <input
+              className="inputText"
+              type="text"
+              {...register("apellido", {
+                required: true,
+                minLength: 5,
+                maxLength: 30,
+              })}
+              id="apellido"
+              placeholder="Enter your lastname"
+            />
+            {errors.apellido?.type === "required" && (
+              <p>El campo apellido es requerido</p>
+            )}
+            {errors.apellido?.type === "minLength" && (
+              <p>El campo apellido debe tener al menos 5 caracteres</p>
+            )}
+            {errors.apellido?.type === "maxLength" && (
+              <p>El campo apellido debe tener menos de 30 caracteres</p>
+            )}
+          </div>
+          <div className="form-group">
+            <label htmlFor="celular">Celular</label>
+            <input
+              className="inputText"
+              type="text"
+              {...register("celular", {
+                required: true,
+                minLength: 10,
+                maxLength: 15,
+              })}
+              id="celular"
+              placeholder="Enter your celphone"
+            />
+            {errors.celular?.type === "required" && (
+              <p>El campo celular es requerido</p>
+            )}
+            {errors.celular?.type === "minLength" && (
+              <p>El campo celular debe tener al menos 10 caracteres</p>
+            )}
+            {errors.celular?.type === "maxLength" && (
+              <p>El campo celular debe tener menos de 15 caracteres</p>
             )}
           </div>
           <div className="form-group">
@@ -97,7 +143,11 @@ const SignUp = () => {
               <p>Debes aceptar los términos y políticas</p>
             )}
           </div>
-          <input id="botonRegistrarse" type="submit" value="¡Regístrate!" />
+          <button id="botonRegistrarse">
+            <Link to="/" className="link-button">
+              ¡Regístrate!
+            </Link>
+          </button>
         </form>
         <div id="signUpDiv" className="form-group">
           <div id="or">
