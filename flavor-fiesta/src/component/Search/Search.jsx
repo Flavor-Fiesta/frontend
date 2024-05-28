@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './search.css';
+import './Search.css';
 
 const Search = () => {
     //Setering the hooks of useState --> Seterar los hooks de useState
