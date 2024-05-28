@@ -8,9 +8,10 @@ const ProductCardContainer = ({ products }) => {
       {products.map(product => (
         <ProductCard
           key={product.id}
-          image={product.nombre}
-          title={product.categoria}
-          price={product.codigo}
+          id={product.id}
+          image={product.imagenes[0].url}
+          title={product.nombre}
+          price={product.precio}
           subtitle={product.categoria}
         />
       ))}

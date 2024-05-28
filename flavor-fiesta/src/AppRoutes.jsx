@@ -5,6 +5,7 @@ import Footer from "./component/Footer/Footer";
 import Login from "./component/Login/Login";
 import "./AppRouter.css";
 import SignUp from "./component/singUpForm/SignUp";
+import ProductDetail from "./component/ProductDetail/ProductDetail"
 
 const AppRoutes = () => {
   return (
@@ -12,6 +13,7 @@ const AppRoutes = () => {
       <Routes>
         <Route element={<HeaderContainer />}>
           <Route path="/" element={<Home />} />
+          <Route path="/product/:productId" element={<ProductDetail />} />
           <Route path="/store" element={null} />
           <Route path="/categories" element={null} />
           <Route path="/faqs" element={null} />
