@@ -92,9 +92,15 @@ const HeaderLayout = () => {
           <MenuItem
             onClick={handleLogin}
             sx={{
+              fontFamily: "Poppins",
+              fontWeight: 600,
               color: "#CC2D4A",
               "&:hover": {
-                opacity: 0.9,
+                color: "#8FA206"
+              },
+              "&:active": {
+                color: "white",
+                backgroundColor: "#8FA206"
               },
             }}
           >
@@ -103,9 +109,15 @@ const HeaderLayout = () => {
           <MenuItem
             onClick={handleSignUp}
             sx={{
+              fontFamily: "Poppins",
+              fontWeight: 600,
               color: "#CC2D4A",
               "&:hover": {
-                opacity: 0.9,
+              color: "#8FA206"
+              },
+              "&:active": {
+                color: "white",
+                backgroundColor: "#8FA206"
               },
             }}
           >
