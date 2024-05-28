@@ -10,9 +10,9 @@ const Home = () => {
   { const [products, setProducts] = useState([]);
 
     useEffect(() => {
-      fetch('http://localhost:8080/productos/')
+      fetch('http://localhost:3001/products')
         .then(response => response.json())
-        .then(data => setProducts(data.data))
+        .then(data => setProducts(data))
         .catch(error => console.error('Error fetching products:', error));
     }, []);
 
