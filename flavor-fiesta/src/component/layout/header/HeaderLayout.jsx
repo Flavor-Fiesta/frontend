@@ -1,4 +1,6 @@
+import React, { useEffect, useState, useContext } from 'react';
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from '../../AuthContext/AuthContext';
 import {
   Box,
   Drawer,
@@ -8,17 +10,19 @@ import {
   ListItemText,
   Menu,
   MenuItem,
+  Avatar
 } from "@mui/material";
-import "./HeaderStyle.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import MenuIcon from "@mui/icons-material/Menu";
 import logo from "./icons/logo.svg";
-import { useEffect, useState } from "react";
 import DarkModeToggle from "../../DarkModeToggle/DarkModeToggle";
 import SearchIcon from "./icons/SearchIcon.svg";
 import CartIcon from "./icons/CartIcon.svg";
-import UserIcon from "./icons/UserIcon.svg";
-import MenuIcon from "@mui/icons-material/Menu";
+import './HeaderStyle.css';
 
 const HeaderLayout = () => {
+  const { usuario, logout } = useContext(AuthContext);
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -34,16 +38,23 @@ const HeaderLayout = () => {
 
   const handleLogin = () => {
     handleClose();
-    navigate("/login"); // Navega a la página de login
+    navigate("/login");
   };
 
   const handleSignUp = () => {
     handleClose();
-    navigate("/signup"); // Navega a la página de registro
+    navigate('/register');
   };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
   const toggleDrawer = (open) => () => {
     setDrawerOpen(open);
   };
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -56,7 +67,6 @@ const HeaderLayout = () => {
     };
   }, []);
 
-
   return (
     <Box component="header" className="Navbar">
       <Box className="logo-container">
@@ -65,7 +75,7 @@ const HeaderLayout = () => {
         </Link>
       </Box>
 
-      <Box component="nav"  className={`navLink ${isMobile ? 'hidden' : ''}`}>
+      <Box component="nav" className={`navLink ${isMobile ? 'hidden' : ''}`}>
         <span onClick={() => navigate("/store")}>Tienda</span>
         <span onClick={() => navigate("/categories")}>Categorías</span>
         <span onClick={() => navigate("/faqs")}>FAQs</span>
@@ -76,7 +86,11 @@ const HeaderLayout = () => {
         <DarkModeToggle />
         <img src={CartIcon} alt="Carrito" className="actionIcon" />
         <IconButton color="inherit" onClick={handleUserIconClick}>
-          <img src={UserIcon} alt="Usuario" className="actionIcon" />
+          {usuario ? (
+            <Avatar style={{ backgroundColor: '#CC2D4A', color: '#ffffff' }} >{usuario.nombre.charAt(0).toUpperCase()}</Avatar>
+          ) : (
+            <FontAwesomeIcon style={{color: '#CC2D4A' }} icon={faUser} />
+          )}
         </IconButton>
         {isMobile && (
           <IconButton className="menu-button" onClick={toggleDrawer(true)}>
@@ -89,40 +103,62 @@ const HeaderLayout = () => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem
-            onClick={handleLogin}
-            sx={{
-              fontFamily: "Poppins",
-              fontWeight: 600,
-              color: "#CC2D4A",
-              "&:hover": {
-                color: "#8FA206"
-              },
-              "&:active": {
-                color: "white",
-                backgroundColor: "#8FA206"
-              },
-            }}
-          >
-            Iniciar sesión
-          </MenuItem>
-          <MenuItem
-            onClick={handleSignUp}
-            sx={{
-              fontFamily: "Poppins",
-              fontWeight: 600,
-              color: "#CC2D4A",
-              "&:hover": {
-              color: "#8FA206"
-              },
-              "&:active": {
-                color: "white",
-                backgroundColor: "#8FA206"
-              },
-            }}
-          >
-            Crear cuenta
-          </MenuItem>
+          {usuario ? (
+            <MenuItem
+              onClick={handleLogout}
+              sx={{
+                fontFamily: "Poppins",
+                fontWeight: 600,
+                color: "#CC2D4A",
+                "&:hover": {
+                  color: "#8FA206"
+                },
+                "&:active": {
+                  color: "white",
+                  backgroundColor: "#8FA206"
+                },
+              }}
+            >
+              Cerrar sesión
+            </MenuItem>
+          ) : (
+            <>
+              <MenuItem
+                onClick={handleLogin}
+                sx={{
+                  fontFamily: "Poppins",
+                  fontWeight: 600,
+                  color: "#CC2D4A",
+                  "&:hover": {
+                    color: "#8FA206"
+                  },
+                  "&:active": {
+                    color: "white",
+                    backgroundColor: "#8FA206"
+                  },
+                }}
+              >
+                Iniciar sesión
+              </MenuItem>
+              <MenuItem
+                onClick={handleSignUp}
+                sx={{
+                  fontFamily: "Poppins",
+                  fontWeight: 600,
+                  color: "#CC2D4A",
+                  "&:hover": {
+                    color: "#8FA206"
+                  },
+                  "&:active": {
+                    color: "white",
+                    backgroundColor: "#8FA206"
+                  },
+                }}
+              >
+                Crear cuenta
+              </MenuItem>
+            </>
+          )}
         </Menu>
       </Box>
       <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
@@ -143,7 +179,7 @@ const HeaderLayout = () => {
               toggleDrawer(false)();
             }}
           >
-            <ListItemText primary="Categorías" className="drawer-menu-item"/>
+            <ListItemText primary="Categorías" className="drawer-menu-item" />
           </ListItem>
           <ListItem
             button
@@ -168,4 +204,5 @@ const HeaderLayout = () => {
     </Box>
   );
 };
+
 export default HeaderLayout;

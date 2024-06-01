@@ -45,5 +45,16 @@
 .dark-mode .product-card .favorite-button.favorited {
   color: red;
 }
+.dark-mode .recipes {
+  background-color: #121212
+}
+
+.dark-mode .ingresa-tus-datos {
+  color: #fff
+}
+
+.dark-mode .bienvenida {
+  color: #fff
+}
 
 

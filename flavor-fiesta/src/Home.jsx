@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import RecipeCardContainer from '../src/component/RecipeCard/RecipeCardContainer'
 import CategoriesSection from '../src/component/Categories/CategoriesSection';
 import ProductCardContainer from './component/ProductCardContainer/ProductCardContainer';
@@ -6,22 +6,17 @@ import bannerHome from '../src/component/Categories/bannerhome.jpg';
 import './Home.css';
 
 const Home = () => {
-  
   { const [products, setProducts] = useState([]);
 
     useEffect(() => {
-      fetch('http://localhost:3001/products')
+      fetch('http://localhost:8080/productos/')
         .then(response => response.json())
-        .then(data => setProducts(data))
+        .then(data => setProducts(data.data))
         .catch(error => console.error('Error fetching products:', error));
     }, []);
 
-    console.log(products)
-
   return (
     <div className="home">
-
-
       <div>
       <img src={bannerHome} alt="BannerHome" className="banner-home" />
       <h2 className="categories-title">Categorías</h2>

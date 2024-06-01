@@ -6,9 +6,12 @@ import Login from "./component/Login/Login";
 import "./AppRouter.css";
 import SignUp from "./component/singUpForm/SignUp";
 import ProductDetail from "./component/ProductDetail/ProductDetail"
+import { AuthProvider } from './component/AuthContext/AuthContext';
+import PrivateRoute from './PrivateRoute';
 
 const AppRoutes = () => {
   return (
+    <AuthProvider>
     <div className="app-container">
       <Routes>
         <Route element={<HeaderContainer />}>
@@ -24,6 +27,7 @@ const AppRoutes = () => {
       </Routes>
       <Footer />
     </div>
+    </AuthProvider>
   );
 };
 
