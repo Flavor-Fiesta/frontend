@@ -3,6 +3,8 @@
     width: 100%;
     align-items: center;
     justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: flex-start;
 
 }
 
@@ -21,7 +23,8 @@
 
 .size{
     width: 250px;
+    margin-bottom: 24px;
+   
     
 }
-
 
