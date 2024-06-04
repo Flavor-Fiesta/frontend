@@ -54,7 +54,7 @@ const HeaderLayout = () => {
 
   const handleSignUp = () => {
     handleClose();
-    navigate('/register');
+    navigate('/signup');
   };
 
   const handleLogout = () => {
