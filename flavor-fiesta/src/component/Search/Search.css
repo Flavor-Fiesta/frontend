@@ -1,10 +1,15 @@
-.input {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    border: 2px solid #CC2D4A;
-    border-radius: 8px;
-    font-size: 16px;
-    display: flex;
+
+.search-container {
+  position: relative;
+  display: inline-block; 
 }
+  
+  .input {
+    width: 80%;
+    max-width: 600px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  

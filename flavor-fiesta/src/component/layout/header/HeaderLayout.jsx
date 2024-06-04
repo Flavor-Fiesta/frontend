@@ -29,10 +29,13 @@ const HeaderLayout = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [show, setShow] = useState(false);
+  const [showUserActions, setShowUserActions] = useState(false);
+
 
   const handleClick = () => {
     console.log("Mostrar / Ocultar elemento", !show);
     setShow(!show);
+    setShowUserActions(false); // Oculta la sección de iconos de usuario cuando se hace clic en la lupa
   };
 
   const changeShow = () => {
@@ -45,6 +48,8 @@ const HeaderLayout = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+    setShowUserActions(false); // Oculta la sección de iconos de usuario cuando se cierra el menú de usuario
+
   };
 
   const handleLogin = () => {
@@ -79,7 +84,9 @@ const HeaderLayout = () => {
   }, []);
 
   return (
-    <Box component="header" className="Navbar">
+    <Box component="header" className={`Navbar ${show ? 'search-active' : ''}`}>  
+      {!show && (
+        <>
       <Box className="logo-container">
         <Link to="/">
           <img src={logo} alt="logo" className="nav-logo" />
@@ -92,9 +99,13 @@ const HeaderLayout = () => {
         <span onClick={() => navigate("/faqs")}>FAQs</span>
         <span onClick={() => navigate("/contact")}>Contacto</span>
       </Box>
+      </>
+      )}
       <Box className="user-actions">
         <img src={SearchIcon} alt="Buscar" className="actionIcon" onClick={handleClick} />
         {show && <Search />}
+        {!show && (
+        <>
         <DarkModeToggle />
         <img src={CartIcon} alt="Carrito" className="actionIcon" />
         <IconButton color="inherit" onClick={handleUserIconClick}>
@@ -104,6 +115,8 @@ const HeaderLayout = () => {
             <FontAwesomeIcon style={{color: '#CC2D4A' }} icon={faUser} />
           )}
         </IconButton>
+        </>
+        )}
         {isMobile && (
           <IconButton className="menu-button" onClick={toggleDrawer(true)}>
             <MenuIcon />

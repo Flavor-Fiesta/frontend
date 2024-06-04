@@ -32,10 +32,17 @@ font-weight: 600;
 
 }
 
+
 .user-actions {
 display: flex;
 align-items: center;
 gap: 15px;
+}
+
+.search-active .user-actions {
+  display: flex;
+  justify-content: flex-start; /* Cambia la justificación a la parte superior */
+  gap: 15px;
 }
 
 .actionIcon {

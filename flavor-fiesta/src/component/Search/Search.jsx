@@ -21,6 +21,10 @@ const Search = (props) => {
         //console.log(e.target.value);
     }
 
+    const clearSearch = () => {
+      setSearch('');
+  };
+
     //Filtering method --> Método de filtrado 2
     const results = !search ? users : users.filter((dato) => dato.name.toLowerCase().includes(search.toLowerCase()));
 
@@ -29,7 +33,7 @@ const Search = (props) => {
     }, []);
 
   return (
-    <div>
+    <div className='search-container'>
     <input value={search} onChange={searcher} type='text' placeholder='Buscar...' className='input' />
       <table className=''>
         <thead>
