@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Search.css';
 
-const Search = () => {
+const Search = (props) => {
     //Setering the hooks of useState --> Seterar los hooks de useState
     const [ users, setUsers ] = useState([]);
     const [ search, setSearch ] = useState('');

@@ -20,6 +20,7 @@ import DarkModeToggle from "../../DarkModeToggle/DarkModeToggle";
 import SearchIcon from "./icons/SearchIcon.svg";
 import CartIcon from "./icons/CartIcon.svg";
 import './HeaderStyle.css';
+import Search from '../../Search/Search';
 
 const HeaderLayout = () => {
   const { usuario, logout } = useContext(AuthContext);
@@ -27,6 +28,16 @@ const HeaderLayout = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [show, setShow] = useState(false);
+
+  const handleClick = () => {
+    console.log("Mostrar / Ocultar elemento", !show);
+    setShow(!show);
+  };
+
+  const changeShow = () => {
+    setShow(!show);
+  };
 
   const handleUserIconClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -82,7 +93,8 @@ const HeaderLayout = () => {
         <span onClick={() => navigate("/contact")}>Contacto</span>
       </Box>
       <Box className="user-actions">
-        <img src={SearchIcon} alt="Buscar" className="actionIcon" />
+        <img src={SearchIcon} alt="Buscar" className="actionIcon" onClick={handleClick} />
+        {show && <Search />}
         <DarkModeToggle />
         <img src={CartIcon} alt="Carrito" className="actionIcon" />
         <IconButton color="inherit" onClick={handleUserIconClick}>

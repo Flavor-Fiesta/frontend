@@ -7,7 +7,7 @@ import "./AppRouter.css";
 import SignUp from "./component/singUpForm/SignUp";
 import ProductDetail from "./component/ProductDetail/ProductDetail"
 import { AuthProvider } from './component/AuthContext/AuthContext';
-import PrivateRoute from './PrivateRoute';
+import Search from "./component/Search/Search";
 
 const AppRoutes = () => {
   return (
@@ -23,6 +23,7 @@ const AppRoutes = () => {
           <Route path="/contact" element={null} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/search" element={<Search />} />
         </Route>
       </Routes>
       <Footer />

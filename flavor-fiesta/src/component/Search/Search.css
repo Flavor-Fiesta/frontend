@@ -5,4 +5,6 @@
     box-sizing: border-box;
     border: 2px solid #CC2D4A;
     border-radius: 8px;
+    font-size: 16px;
+    display: flex;
 }
