@@ -21,6 +21,7 @@ import logo from "./icons/logo.svg";
 import DarkModeToggle from "../../DarkModeToggle/DarkModeToggle";
 import SearchIcon from "./icons/SearchIcon.svg";
 import './HeaderStyle.css';
+import Search from '../../Search/Search';
 
 const HeaderLayout = () => {
   const { usuario, logout } = useContext(AuthContext);
@@ -29,6 +30,19 @@ const HeaderLayout = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [show, setShow] = useState(false);
+  const [showUserActions, setShowUserActions] = useState(false);
+
+
+  const handleClick = () => {
+    console.log("Mostrar / Ocultar elemento", !show);
+    setShow(!show);
+    setShowUserActions(false); // Oculta la sección de iconos de usuario cuando se hace clic en la lupa
+  };
+
+  const changeShow = () => {
+    setShow(!show);
+  };
 
   const handleUserIconClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -36,6 +50,8 @@ const HeaderLayout = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+    setShowUserActions(false); // Oculta la sección de iconos de usuario cuando se cierra el menú de usuario
+
   };
 
   const handleLogin = () => {
@@ -45,7 +61,7 @@ const HeaderLayout = () => {
 
   const handleSignUp = () => {
     handleClose();
-    navigate('/register');
+    navigate('/signup');
   };
 
   const handleLogout = () => {
@@ -70,7 +86,9 @@ const HeaderLayout = () => {
   }, []);
 
   return (
-    <Box component="header" className="Navbar">
+    <Box component="header" className={`Navbar ${show ? 'search-active' : ''}`}>  
+      {!show && (
+        <>
       <Box className="logo-container">
         <Link to="/">
           <img src={logo} alt="logo" className="nav-logo" />
@@ -83,8 +101,13 @@ const HeaderLayout = () => {
         <span onClick={() => navigate("/faqs")}>FAQs</span>
         <span onClick={() => navigate("/contact")}>Contacto</span>
       </Box>
+      </>
+      )}
       <Box className="user-actions">
-        <img src={SearchIcon} alt="Buscar" className="actionIcon" />
+        <img src={SearchIcon} alt="Buscar" className="actionIcon" onClick={handleClick} />
+        {show && <Search />}
+        {!show && (
+        <>
         <DarkModeToggle />
         <IconButton color="inherit" onClick={() => navigate('/cart')}>
           <Badge badgeContent={cartItems.reduce((acc, item) => acc + item.quantity, 0)} color="secondary">
@@ -100,6 +123,8 @@ const HeaderLayout = () => {
             <FontAwesomeIcon icon={faUser} />
           )}
         </IconButton>
+        </>
+        )}
         {isMobile && (
           <IconButton className="menu-button" onClick={toggleDrawer(true)}>
             <MenuIcon style={{ color: '#CC2D4A' }} />
