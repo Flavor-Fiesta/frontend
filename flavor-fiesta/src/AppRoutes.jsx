@@ -7,13 +7,10 @@ import "./AppRouter.css";
 import SignUp from "./component/singUpForm/SignUp";
 import ProductDetail from "./component/ProductDetail/ProductDetail"
 import { AuthProvider } from './component/AuthContext/AuthContext';
-<<<<<<< HEAD
 import CartProvider from './component/CartContext/CartContext';
 import CartPage from './component/CartPage/CartPage';
 import PrivateRoute from './PrivateRoute';
-=======
 import Search from "./component/Search/Search";
->>>>>>> 0ce933e607b87abfbf960744fb6fff5ad49a0f37
 
 const AppRoutes = () => {
   return (
@@ -30,11 +27,8 @@ const AppRoutes = () => {
           <Route path="/contact" element={null} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-<<<<<<< HEAD
           <Route path="/cart" element={<CartPage />} />
-=======
           <Route path="/search" element={<Search />} />
->>>>>>> 0ce933e607b87abfbf960744fb6fff5ad49a0f37
         </Route>
       </Routes>
       <Footer />
