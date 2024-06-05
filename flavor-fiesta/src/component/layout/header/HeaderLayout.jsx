@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from '../../AuthContext/AuthContext';
+import { CartContext } from '../../CartContext/CartContext';
 import {
   Box,
   Drawer,
@@ -10,19 +11,20 @@ import {
   ListItemText,
   Menu,
   MenuItem,
-  Avatar
+  Avatar,
+  Badge
 } from "@mui/material";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import MenuIcon from "@mui/icons-material/Menu";
 import logo from "./icons/logo.svg";
 import DarkModeToggle from "../../DarkModeToggle/DarkModeToggle";
 import SearchIcon from "./icons/SearchIcon.svg";
-import CartIcon from "./icons/CartIcon.svg";
 import './HeaderStyle.css';
 
 const HeaderLayout = () => {
   const { usuario, logout } = useContext(AuthContext);
+  const { cartItems } = useContext(CartContext);
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -84,17 +86,23 @@ const HeaderLayout = () => {
       <Box className="user-actions">
         <img src={SearchIcon} alt="Buscar" className="actionIcon" />
         <DarkModeToggle />
-        <img src={CartIcon} alt="Carrito" className="actionIcon" />
-        <IconButton color="inherit" onClick={handleUserIconClick}>
+        <IconButton color="inherit" onClick={() => navigate('/cart')}>
+          <Badge badgeContent={cartItems.reduce((acc, item) => acc + item.quantity, 0)} color="secondary">
+            <FontAwesomeIcon icon={faShoppingCart} style={{ color: '#CC2D4A' }} />
+          </Badge>
+        </IconButton>
+        <IconButton color="inherit" onClick={handleUserIconClick} style={{ color: '#CC2D4A' }}>
           {usuario ? (
-            <Avatar style={{ backgroundColor: '#CC2D4A', color: '#ffffff' }} >{usuario.nombre.charAt(0).toUpperCase()}</Avatar>
+            <Avatar style={{ backgroundColor: '#CC2D4A', color: 'white' }}>
+              {usuario.nombre.charAt(0).toUpperCase()}
+            </Avatar>
           ) : (
-            <FontAwesomeIcon style={{color: '#CC2D4A' }} icon={faUser} />
+            <FontAwesomeIcon icon={faUser} />
           )}
         </IconButton>
         {isMobile && (
           <IconButton className="menu-button" onClick={toggleDrawer(true)}>
-            <MenuIcon />
+            <MenuIcon style={{ color: '#CC2D4A' }} />
           </IconButton>
         )}
 
@@ -179,7 +187,7 @@ const HeaderLayout = () => {
               toggleDrawer(false)();
             }}
           >
-            <ListItemText primary="Categorías" className="drawer-menu-item" />
+            <ListItemText primary="Categorías" className="drawer-menu-item"/>
           </ListItem>
           <ListItem
             button

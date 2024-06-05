@@ -28,7 +28,6 @@ const Home = () => {
         <RecipeCardContainer/>
       </div>
 
-
       <h2 className="section-title">Mas Vendidos</h2>
       <ProductCardContainer products={products} />
     </div>

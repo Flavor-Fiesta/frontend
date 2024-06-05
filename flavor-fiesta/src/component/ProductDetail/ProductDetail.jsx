@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import './ProductDetail.css';
 import Carousel from '../Carousel/Carousel';
-
+import { CartContext } from '../CartContext/CartContext';
 
 const ProductDetail = () => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const { addItemToCart } = useContext(CartContext);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -22,9 +23,11 @@ const ProductDetail = () => {
 
     fetchProduct();
   }, [productId]);
- console.log(product)
+
   const handleAddToCart = () => {
-    // Lógica para agregar al carrito
+    console.log(product.cantidad)
+    product.cantidad = quantity
+    addItemToCart(product, quantity);
     console.log(`Agregar al carrito: ${product.nombre} x ${quantity}`);
   };
 
@@ -47,7 +50,7 @@ const ProductDetail = () => {
             type="number"
             value={quantity}
             min="1"
-            onChange={(e) => setQuantity(e.target.value)}
+            onChange={(e) => setQuantity(parseInt(e.target.value))}
           />
           <button onClick={handleAddToCart}>Agregar al Carrito</button>
         </div>

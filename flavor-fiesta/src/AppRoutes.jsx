@@ -7,11 +7,14 @@ import "./AppRouter.css";
 import SignUp from "./component/singUpForm/SignUp";
 import ProductDetail from "./component/ProductDetail/ProductDetail"
 import { AuthProvider } from './component/AuthContext/AuthContext';
+import CartProvider from './component/CartContext/CartContext';
+import CartPage from './component/CartPage/CartPage';
 import PrivateRoute from './PrivateRoute';
 
 const AppRoutes = () => {
   return (
     <AuthProvider>
+      <CartProvider>
     <div className="app-container">
       <Routes>
         <Route element={<HeaderContainer />}>
@@ -23,10 +26,12 @@ const AppRoutes = () => {
           <Route path="/contact" element={null} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/cart" element={<CartPage />} />
         </Route>
       </Routes>
       <Footer />
     </div>
+    </CartProvider>
     </AuthProvider>
   );
 };
