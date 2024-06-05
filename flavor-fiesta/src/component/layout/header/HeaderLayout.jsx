@@ -97,7 +97,7 @@ const HeaderLayout = () => {
 
       <Box component="nav" className={`navLink ${isMobile ? 'hidden' : ''}`}>
         <span onClick={() => navigate("/store")}>Tienda</span>
-        <span onClick={() => navigate("/categories")}>Categorías</span>
+        <span onClick={() => navigate("/aboutus")}>Nosotros</span>
         <span onClick={() => navigate("/faqs")}>FAQs</span>
         <span onClick={() => navigate("/contact")}>Contacto</span>
       </Box>
@@ -208,11 +208,11 @@ const HeaderLayout = () => {
           <ListItem
             button
             onClick={() => {
-              navigate("/categories");
+              navigate("/aboutus");
               toggleDrawer(false)();
             }}
           >
-            <ListItemText primary="Categorías" className="drawer-menu-item"/>
+            <ListItemText primary="Nosotros" className="drawer-menu-item"/>
           </ListItem>
           <ListItem
             button
