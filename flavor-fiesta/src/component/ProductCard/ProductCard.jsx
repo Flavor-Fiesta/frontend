@@ -4,17 +4,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
-const ProductCard = ({ image, title, subtitle, price }) => {
+const ProductCard = ({ image, title, subtitle, price, id }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   const handleFavoriteClick = () => {
     setIsFavorite(!isFavorite);
-  };
-
-  const handleExtraButtonClick = () => {
-    // Aquí puedes agregar la lógica adicional para el botón extra
-    alert('Botón adicional clicado');
   };
   return (
     <div className="product-card">
@@ -32,9 +28,9 @@ const ProductCard = ({ image, title, subtitle, price }) => {
         <h3 className="product-subtitle">{subtitle}</h3>
         <div className="product-details">
           <span className="product-price">${price}</span>
-          <button className="extra-button" onClick={handleExtraButtonClick}>
-            <FontAwesomeIcon icon={faPlus} />
-          </button>
+          <Link to={`/product/${id}`} className="extra-button">
+        <FontAwesomeIcon icon={faPlus} />
+        </Link>
         </div>
       </div>
     </div>

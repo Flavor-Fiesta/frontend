@@ -1,15 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import './Login.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import loginImage from '../../assets/iniciarsesion.jpg';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../AuthContext/AuthContext';
+
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const { usuario, login } = useContext(AuthContext);
+  const navigate = useNavigate(); // Hook para redirección
+
+    // Redirigir si ya está autenticado
+    if (usuario) {
+      navigate('/');
+    }
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -22,9 +32,17 @@ const LoginPage = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:3000/login', { email, password });
-      // Aquí puedes manejar la respuesta de la API
-      console.log(response.data);
+      const response = await axios.get(`http://localhost:8080/usuarios/email&passdatos?email=${email}&password=${password}`);
+      console.log(response.data.success)
+      // Manejar la respuesta de la API
+      if (response.data.success) {
+        login(response.data.usuario);
+        alert("se logeo correctamente, sera redireccionado al home")
+        // Redirigir al usuario a la página principal o a otra página después del inicio de sesión exitoso
+        navigate('/');
+      } else {
+        setError('El usuario no existe o las credenciales son incorrectas.');
+      }
     } catch (err) {
       setError('El usuario no existe o las credenciales son incorrectas.');
     }
@@ -68,7 +86,7 @@ const LoginPage = () => {
           {error && <p className="error-message">{error}</p>}
           <button type="submit" className="login-button">Iniciar Sesión</button>
         </form>
-        <p className='registrate'>¿No tienes cuenta? <a href="/register">Regístrate aquí</a></p>
+        <p className='registrate'>¿No tienes cuenta? <a href="/signup">Regístrate aquí</a></p>
       </div>
       <div className="login-image">
         <img src={loginImage} alt="Login" />

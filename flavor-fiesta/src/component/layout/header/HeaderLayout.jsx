@@ -1,4 +1,7 @@
+import React, { useEffect, useState, useContext } from 'react';
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from '../../AuthContext/AuthContext';
+import { CartContext } from '../../CartContext/CartContext';
 import {
   Box,
   Drawer,
@@ -8,21 +11,38 @@ import {
   ListItemText,
   Menu,
   MenuItem,
+  Avatar,
+  Badge
 } from "@mui/material";
-import "./HeaderStyle.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import MenuIcon from "@mui/icons-material/Menu";
 import logo from "./icons/logo.svg";
-import { useEffect, useState } from "react";
 import DarkModeToggle from "../../DarkModeToggle/DarkModeToggle";
 import SearchIcon from "./icons/SearchIcon.svg";
-import CartIcon from "./icons/CartIcon.svg";
-import UserIcon from "./icons/UserIcon.svg";
-import MenuIcon from "@mui/icons-material/Menu";
+import './HeaderStyle.css';
+import Search from '../../Search/Search';
 
 const HeaderLayout = () => {
+  const { usuario, logout } = useContext(AuthContext);
+  const { cartItems } = useContext(CartContext);
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [show, setShow] = useState(false);
+  const [showUserActions, setShowUserActions] = useState(false);
+
+
+  const handleClick = () => {
+    console.log("Mostrar / Ocultar elemento", !show);
+    setShow(!show);
+    setShowUserActions(false); // Oculta la sección de iconos de usuario cuando se hace clic en la lupa
+  };
+
+  const changeShow = () => {
+    setShow(!show);
+  };
 
   const handleUserIconClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -30,20 +50,29 @@ const HeaderLayout = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+    setShowUserActions(false); // Oculta la sección de iconos de usuario cuando se cierra el menú de usuario
+
   };
 
   const handleLogin = () => {
     handleClose();
-    navigate("/login"); // Navega a la página de login
+    navigate("/login");
   };
 
   const handleSignUp = () => {
     handleClose();
-    navigate("/signup"); // Navega a la página de registro
+    navigate('/signup');
   };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
   const toggleDrawer = (open) => () => {
     setDrawerOpen(open);
   };
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -56,31 +85,49 @@ const HeaderLayout = () => {
     };
   }, []);
 
-
   return (
-    <Box component="header" className="Navbar">
+    <Box component="header" className={`Navbar ${show ? 'search-active' : ''}`}>  
+      {!show && (
+        <>
       <Box className="logo-container">
         <Link to="/">
           <img src={logo} alt="logo" className="nav-logo" />
         </Link>
       </Box>
 
-      <Box component="nav"  className={`navLink ${isMobile ? 'hidden' : ''}`}>
+      <Box component="nav" className={`navLink ${isMobile ? 'hidden' : ''}`}>
         <span onClick={() => navigate("/store")}>Tienda</span>
-        <span onClick={() => navigate("/categories")}>Categorías</span>
+        <span onClick={() => navigate("/aboutus")}>Conócenos</span>
         <span onClick={() => navigate("/faqs")}>FAQs</span>
         <span onClick={() => navigate("/contact")}>Contacto</span>
       </Box>
+      </>
+      )}
       <Box className="user-actions">
-        <img src={SearchIcon} alt="Buscar" className="actionIcon" />
+        <img src={SearchIcon} alt="Buscar" className="actionIcon" onClick={handleClick} />
+        {show && <Search />}
+        {!show && (
+        <>
         <DarkModeToggle />
-        <img src={CartIcon} alt="Carrito" className="actionIcon" />
-        <IconButton color="inherit" onClick={handleUserIconClick}>
-          <img src={UserIcon} alt="Usuario" className="actionIcon" />
+        <IconButton color="inherit" onClick={() => navigate('/cart')}>
+          <Badge badgeContent={cartItems.reduce((acc, item) => acc + item.quantity, 0)} color="secondary">
+            <FontAwesomeIcon icon={faShoppingCart} style={{ color: '#CC2D4A' }} />
+          </Badge>
         </IconButton>
+        <IconButton color="inherit" onClick={handleUserIconClick} style={{ color: '#CC2D4A' }}>
+          {usuario ? (
+            <Avatar style={{ backgroundColor: '#CC2D4A', color: 'white' }}>
+              {usuario.nombre.charAt(0).toUpperCase()}
+            </Avatar>
+          ) : (
+            <FontAwesomeIcon icon={faUser} />
+          )}
+        </IconButton>
+        </>
+        )}
         {isMobile && (
           <IconButton className="menu-button" onClick={toggleDrawer(true)}>
-            <MenuIcon />
+            <MenuIcon style={{ color: '#CC2D4A' }} />
           </IconButton>
         )}
 
@@ -89,28 +136,62 @@ const HeaderLayout = () => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem
-            onClick={handleLogin}
-            sx={{
-              color: "#CC2D4A",
-              "&:hover": {
-                opacity: 0.9,
-              },
-            }}
-          >
-            Iniciar sesión
-          </MenuItem>
-          <MenuItem
-            onClick={handleSignUp}
-            sx={{
-              color: "#CC2D4A",
-              "&:hover": {
-                opacity: 0.9,
-              },
-            }}
-          >
-            Crear cuenta
-          </MenuItem>
+          {usuario ? (
+            <MenuItem
+              onClick={handleLogout}
+              sx={{
+                fontFamily: "Poppins",
+                fontWeight: 600,
+                color: "#CC2D4A",
+                "&:hover": {
+                  color: "#8FA206"
+                },
+                "&:active": {
+                  color: "white",
+                  backgroundColor: "#8FA206"
+                },
+              }}
+            >
+              Cerrar sesión
+            </MenuItem>
+          ) : (
+            <>
+              <MenuItem
+                onClick={handleLogin}
+                sx={{
+                  fontFamily: "Poppins",
+                  fontWeight: 600,
+                  color: "#CC2D4A",
+                  "&:hover": {
+                    color: "#8FA206"
+                  },
+                  "&:active": {
+                    color: "white",
+                    backgroundColor: "#8FA206"
+                  },
+                }}
+              >
+                Iniciar sesión
+              </MenuItem>
+              <MenuItem
+                onClick={handleSignUp}
+                sx={{
+                  fontFamily: "Poppins",
+                  fontWeight: 600,
+                  color: "#CC2D4A",
+                  "&:hover": {
+                    color: "#8FA206"
+                  },
+                  "&:active": {
+                    color: "white",
+                    backgroundColor: "#8FA206"
+                  },
+                }}
+              >
+                Crear cuenta
+              </MenuItem>
+            </>
+          )}
         </Menu>
       </Box>
       <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
@@ -127,11 +208,11 @@ const HeaderLayout = () => {
           <ListItem
             button
             onClick={() => {
-              navigate("/categories");
+              navigate("/aboutus");
               toggleDrawer(false)();
             }}
           >
-            <ListItemText primary="Categorías" className="drawer-menu-item"/>
+            <ListItemText primary="Conócenos" className="drawer-menu-item"/>
           </ListItem>
           <ListItem
             button
@@ -156,4 +237,5 @@ const HeaderLayout = () => {
     </Box>
   );
 };
+
 export default HeaderLayout;

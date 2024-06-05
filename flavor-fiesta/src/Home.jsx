@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import RecipeCardContainer from '../src/component/RecipeCard/RecipeCardContainer'
 import CategoriesSection from '../src/component/Categories/CategoriesSection';
 import ProductCardContainer from './component/ProductCardContainer/ProductCardContainer';
@@ -6,7 +6,6 @@ import bannerHome from '../src/component/Categories/bannerhome.jpg';
 import './Home.css';
 
 const Home = () => {
-  
   { const [products, setProducts] = useState([]);
 
     useEffect(() => {
@@ -16,12 +15,8 @@ const Home = () => {
         .catch(error => console.error('Error fetching products:', error));
     }, []);
 
-    console.log(products)
-
   return (
     <div className="home">
-
-
       <div>
       <img src={bannerHome} alt="BannerHome" className="banner-home" />
       <h2 className="categories-title">Categorías</h2>
@@ -32,7 +27,6 @@ const Home = () => {
         <h2 className="categories-title">Mezcla y disfruta</h2>
         <RecipeCardContainer/>
       </div>
-
 
       <h2 className="section-title">Mas Vendidos</h2>
       <ProductCardContainer products={products} />

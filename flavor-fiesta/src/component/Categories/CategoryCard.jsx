@@ -17,10 +17,12 @@ const CategoryCard = ({ category, link }) => {
   return (
     
     <div className="category-card">
+      <a href={link} className="category-link">
       <img src={image} alt={category} className="category-image" />
       <div className="category-content">
-        <a href={link} className="category-button">{category}</a>
-      </div>
+      <span className="category-button">{category}</span>
+        </div>
+      </a>
     </div>
   );
 };
