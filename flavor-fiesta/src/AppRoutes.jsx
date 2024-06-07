@@ -12,7 +12,7 @@ import CartProvider from './component/CartContext/CartContext';
 import CartPage from './component/CartPage/CartPage';
 import PrivateRoute from './PrivateRoute';
 import Search from "./component/Search/Search";
-
+import Faqs from "./component/Faqs/FaqsPage";
 const AppRoutes = () => {
   return (
     <AuthProvider>
@@ -24,7 +24,7 @@ const AppRoutes = () => {
           <Route path="/product/:productId" element={<ProductDetail />} />
           <Route path="/store" element={null} />
           <Route path="/aboutus" element={null} />
-          <Route path="/faqs" element={null} />
+          <Route path="/faqs" element={<Faqs/>} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/contact" element={<Contact />} />
