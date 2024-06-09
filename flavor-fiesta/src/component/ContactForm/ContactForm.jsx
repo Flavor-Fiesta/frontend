@@ -30,7 +30,7 @@ const ContactForm = () => {
         if (name && email && comment && how) {
             if (validateEmail(email)) {
                 setMessage('Mensaje enviado correctamente');
-                // Aquí puedes agregar el código para enviar los datos al servidor
+                // Aquí va el código para enviar los datos al servidor
             } else {
                 setMessage('Por favor, ingresa un correo electrónico válido');
             }
@@ -74,7 +74,7 @@ const ContactForm = () => {
                     onChange={handleChange}
                     required
                 ></textarea>
-                <label htmlFor="how">¿Cómo nos encontraste?</label>
+                <br/>
                 <select
                     id="how"
                     name="how"
@@ -82,7 +82,7 @@ const ContactForm = () => {
                     onChange={handleChange}
                     required
                 >
-                    <option value="">Selecciona una opción</option>
+                    <option value="">¿Cómo nos encontraste?</option>
                     <option value="amigo">Recomendación de un amigo</option>
                     <option value="redes">Redes sociales</option>
                     <option value="google">Búsqueda en Google</option>
