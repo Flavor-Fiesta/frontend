@@ -85,6 +85,27 @@ h2 {
     width: 100%;
 }
 
+::placeholder {
+    color: black;
+    opacity: 1;
+  
+}
+
+
+::-webkit-input-placeholder {
+    color: black;
+    opacity: 1;
+}
+
+:-ms-input-placeholder {
+    color: black;
+    opacity: 1;
+}
+
+::-ms-input-placeholder {
+    color: black;
+    opacity: 1;
+}
 .horizontal-line {
     flex-grow: 10;
     border: none;
