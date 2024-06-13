@@ -4,6 +4,7 @@ import Home from "./Home";
 import Footer from "./component/Footer/Footer";
 import Login from "./component/Login/Login";
 import "./AppRouter.css";
+import About from "./component/Aboutus/About";
 import SignUp from "./component/singUpForm/SignUp";
 import Contact from "./component/ContactForm/Contact";
 import ProductDetail from "./component/ProductDetail/ProductDetail"
@@ -12,7 +13,7 @@ import CartProvider from './component/CartContext/CartContext';
 import CartPage from './component/CartPage/CartPage';
 import PrivateRoute from './PrivateRoute';
 import Search from "./component/Search/Search";
-
+import Faqs from "./component/Faqs/FaqsPage";
 const AppRoutes = () => {
   return (
     <AuthProvider>
@@ -23,8 +24,8 @@ const AppRoutes = () => {
           <Route path="/" element={<Home />} />
           <Route path="/product/:productId" element={<ProductDetail />} />
           <Route path="/store" element={null} />
-          <Route path="/aboutus" element={null} />
-          <Route path="/faqs" element={null} />
+          <Route path="/aboutus" element={<About/>} />
+          <Route path="/faqs" element={<Faqs/>} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/contact" element={<Contact />} />

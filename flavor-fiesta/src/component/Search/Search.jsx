@@ -36,12 +36,12 @@ const Search = (props) => {
     <div className='search-container'>
     <input value={search} onChange={searcher} type='text' placeholder='Buscar...' className='input' />
       <table className=''>
-        <thead>
+        {/*<thead>
           <tr>
             <th>TITULO</th>
             <th>DETALLE-PRODUCTO</th>
           </tr>
-        </thead>
+        </thead>*/}
         <tbody>
           {results.map((user) => (
             <tr key={user.id}>
