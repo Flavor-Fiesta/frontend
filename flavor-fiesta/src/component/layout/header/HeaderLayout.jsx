@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import  { useEffect, useState, useContext } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from '../../AuthContext/AuthContext';
 import { CartContext } from '../../CartContext/CartContext';
@@ -52,6 +52,14 @@ const HeaderLayout = () => {
     setAnchorEl(null);
     setShowUserActions(false); // Oculta la sección de iconos de usuario cuando se cierra el menú de usuario
 
+  };
+
+  const handleMisPedidos = () => {
+    navigate("/MisPedidos"); // 
+  };
+
+  const handleEditarPerfil = () => {
+    navigate("/EditarPerfil"); // 
   };
 
   const handleLogin = () => {
@@ -131,68 +139,131 @@ const HeaderLayout = () => {
           </IconButton>
         )}
 
-        <Menu
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-        >
-          {usuario ? (
-            <MenuItem
-              onClick={handleLogout}
-              sx={{
-                fontFamily: "Poppins",
-                fontWeight: 600,
-                color: "#CC2D4A",
-                "&:hover": {
-                  color: "#8FA206"
-                },
-                "&:active": {
-                  color: "white",
-                  backgroundColor: "#8FA206"
-                },
-              }}
-            >
-              Cerrar sesión
-            </MenuItem>
-          ) : (
-            <>
-              <MenuItem
-                onClick={handleLogin}
-                sx={{
-                  fontFamily: "Poppins",
-                  fontWeight: 600,
-                  color: "#CC2D4A",
-                  "&:hover": {
-                    color: "#8FA206"
-                  },
-                  "&:active": {
-                    color: "white",
-                    backgroundColor: "#8FA206"
-                  },
-                }}
-              >
-                Iniciar sesión
-              </MenuItem>
-              <MenuItem
-                onClick={handleSignUp}
-                sx={{
-                  fontFamily: "Poppins",
-                  fontWeight: 600,
-                  color: "#CC2D4A",
-                  "&:hover": {
-                    color: "#8FA206"
-                  },
-                  "&:active": {
-                    color: "white",
-                    backgroundColor: "#8FA206"
-                  },
-                }}
-              >
-                Crear cuenta
-              </MenuItem>
-            </>
-          )}
-        </Menu>
+<Menu
+  anchorEl={anchorEl}
+  open={Boolean(anchorEl)}
+  onClose={handleClose}
+>
+  {usuario ? (
+    <>
+      <MenuItem
+        onClick={() => {
+          // Agrega la lógica para navegar a la página de editar perfil
+          handleEditarPerfil();
+        }}
+        sx={{
+          fontFamily: "Poppins",
+          fontWeight: 600,
+          color: "#CC2D4A",
+          "&:hover": {
+            color: "#8FA206"
+          },
+          "&:active": {
+            color: "white",
+            backgroundColor: "#8FA206"
+          },
+        }}
+      >
+        Editar perfil
+      </MenuItem>
+      <MenuItem
+        onClick={() => {
+          // Agrega la lógica para navegar a la página de favoritos
+          handleClose();
+        }}
+        sx={{
+          fontFamily: "Poppins",
+          fontWeight: 600,
+          color: "#CC2D4A",
+          "&:hover": {
+            color: "#8FA206"
+          },
+          "&:active": {
+            color: "white",
+            backgroundColor: "#8FA206"
+          },
+        }}
+      >
+        Favoritos
+      </MenuItem>
+      <MenuItem
+        onClick={() => {
+          // Agrega la lógica para navegar a la página de mis pedidos
+          handleClose();
+        }}
+        sx={{
+          fontFamily: "Poppins",
+          fontWeight: 600,
+          color: "#CC2D4A",
+          "&:hover": {
+            color: "#8FA206"
+          },
+          "&:active": {
+            color: "white",
+            backgroundColor: "#8FA206"
+          },
+        }}
+      >
+        Mis pedidos
+      </MenuItem>
+      <MenuItem
+        onClick={handleLogout}
+        sx={{
+          fontFamily: "Poppins",
+          fontWeight: 600,
+          color: "#CC2D4A",
+          "&:hover": {
+            color: "#8FA206"
+          },
+          "&:active": {
+            color: "white",
+            backgroundColor: "#8FA206"
+          },
+        }}
+      >
+        Cerrar sesión
+      </MenuItem>
+    </>
+  ) : (
+    <>
+      <MenuItem
+        onClick={handleLogin}
+        sx={{
+          fontFamily: "Poppins",
+          fontWeight: 600,
+          color: "#CC2D4A",
+          "&:hover": {
+            color: "#8FA206"
+          },
+          "&:active": {
+            color: "white",
+            backgroundColor: "#8FA206"
+          },
+        }}
+      >
+        Iniciar sesión
+      </MenuItem>
+      <MenuItem
+        onClick={handleSignUp}
+        sx={{
+          fontFamily: "Poppins",
+          fontWeight: 600,
+          color: "#CC2D4A",
+          "&:hover": {
+            color: "#8FA206"
+          },
+          "&:active": {
+            color: "white",
+            backgroundColor: "#8FA206"
+          },
+        }}
+      >
+        Crear cuenta
+      </MenuItem>
+    </>
+  )}
+</Menu>
+
       </Box>
       <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
         <List>
@@ -208,11 +279,11 @@ const HeaderLayout = () => {
           <ListItem
             button
             onClick={() => {
-              navigate("/aboutus");
+              navigate("/categories");
               toggleDrawer(false)();
             }}
           >
-            <ListItemText primary="Conócenos" className="drawer-menu-item"/>
+            <ListItemText primary="Categorías" className="drawer-menu-item"/>
           </ListItem>
           <ListItem
             button

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import  { useState, useContext } from 'react';
 import axios from 'axios';
 import './Login.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,6 +6,7 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import loginImage from '../../assets/iniciarsesion.jpg';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../AuthContext/AuthContext';
+import API_BASE_URL from "../../config";
 
 
 const LoginPage = () => {
@@ -32,12 +33,11 @@ const LoginPage = () => {
     }
 
     try {
-      const response = await axios.get(`http://localhost:8080/usuarios/email&passdatos?email=${email}&password=${password}`);
+      const response = await axios.get(`${API_BASE_URL}/usuarios/email&passdatos?email=${email}&password=${password}`);
       console.log(response.data.success)
       // Manejar la respuesta de la API
       if (response.data.success) {
         login(response.data.usuario);
-        alert("se logeo correctamente, sera redireccionado al home")
         // Redirigir al usuario a la página principal o a otra página después del inicio de sesión exitoso
         navigate('/');
       } else {

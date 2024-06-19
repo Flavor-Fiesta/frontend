@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect } from 'react';
 
 export const AuthContext = createContext();
 
@@ -24,9 +24,19 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('usuario');
   };
 
+  const actualizarUsuario = (usuarioActualizado) => {
+    const usuarioActualizadoCompleto = {
+      ...usuario,
+      ...usuarioActualizado  // Sobrescribe solo los campos que se han actualizado
+    };
+    setusuario(usuarioActualizadoCompleto);
+    localStorage.setItem('usuario', JSON.stringify(usuarioActualizadoCompleto));
+  };
+
   return (
-    <AuthContext.Provider value={{ usuario, login, logout, loading }}>
+    <AuthContext.Provider value={{ usuario, login, logout, loading, actualizarUsuario }}>
       {children}
     </AuthContext.Provider>
   );
 };
+

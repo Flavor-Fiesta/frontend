@@ -1,15 +1,22 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import  { useState, useEffect, useContext } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './ProductDetail.css';
 import Carousel from '../Carousel/Carousel';
 import { CartContext } from '../CartContext/CartContext';
+import { AuthContext } from '../AuthContext/AuthContext';
+import { OrderContext } from '../OrderContext/OrderContext';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
 
 const ProductDetail = () => {
+  const { usuario } = useContext(AuthContext);
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
+  const { orden, setTriggerFetch } = useContext(OrderContext);
   const [quantity, setQuantity] = useState(1);
+  const [openDialog, setOpenDialog] = useState(false);
   const { addItemToCart } = useContext(CartContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -24,11 +31,73 @@ const ProductDetail = () => {
     fetchProduct();
   }, [productId]);
 
-  const handleAddToCart = () => {
-    console.log(product.cantidad)
-    product.cantidad = quantity
-    addItemToCart(product, quantity);
-    console.log(`Agregar al carrito: ${product.nombre} x ${quantity}`);
+  const createOrder = async () => {
+    try {
+      const response = await axios.post('http://localhost:8080/ordenes/crear', {
+        id_usuario: usuario.id,
+        id_estado: 1, // Assuming 1 is the default state for a new order
+        fechaOrden: new Date().toISOString(),
+        total: 0
+      });
+      orden({success: true});
+      return response;
+    } catch (error) {
+      console.error('Error creating order', error);
+      return null;
+    }
+  };
+
+  const createOrderProduct = async (orderId) => {
+    try {
+      const response = await axios.post('http://localhost:8080/ordenProductos/crear', {
+        id_orden: orderId,
+        id_producto: product.id,
+        total: product.precio * quantity,
+        cantidad: quantity
+      });
+      return response.data.data;
+    } catch (error) {
+      console.error('Error creating order product', error);
+      return null;
+    }
+  };
+
+  const handleAddToCart = async () => {
+    if (!usuario) {
+      setOpenDialog(true);
+    } else {
+      if (!orden.success) {
+        const newOrder = await createOrder();
+        console.log(newOrder)
+        if (newOrder) {
+          console.log(newOrder.id);
+          const newOrderProduct = await createOrderProduct(newOrder.id);
+          if (newOrderProduct) {
+            console.log('Order and order products created successfully');
+          }
+          setTriggerFetch(prev => !prev);
+        }
+      } else {
+        console.log(orden)
+        const newOrderProduct = await createOrderProduct(orden.usuario.id);
+        if (newOrderProduct) {
+          console.log('Order product added successfully to the existing order');
+        }
+      }
+
+      product.cantidad = quantity;
+      addItemToCart(product, quantity);
+      console.log(`Agregar al carrito: ${product.nombre} x ${quantity}`);
+    }
+  };
+
+  const handleDialogClose = () => {
+    setOpenDialog(false);
+  };
+
+  const handleDialogConfirm = () => {
+    setOpenDialog(false);
+    navigate('/login');
   };
 
   if (!product) {
@@ -56,6 +125,27 @@ const ProductDetail = () => {
         </div>
         <p>{product.descripcion}</p>
       </div>
+
+      {/* Diálogo de alerta */}
+      <Dialog
+        open={openDialog}
+        onClose={handleDialogClose}
+      >
+        <DialogTitle>Iniciar Sesión</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Antes de ingresar un producto, debes iniciar sesión.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogClose} color="primary">
+            Cancelar
+          </Button>
+          <Button onClick={handleDialogConfirm} color="primary">
+            Iniciar Sesión
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

@@ -1,4 +1,3 @@
-import React from 'react';
 import { TextField, Typography, Button, Box } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
@@ -19,7 +18,7 @@ const CartSummary = ({ cartItems, handleQuantityChange, removeItemFromCart, calc
                 <th>Imagen</th>
                 <th>Nombre</th>
                 <th>Cantidad</th>
-                <th>Precio</th>
+                <th>Total</th>
                 <th>Eliminar</th>
               </tr>
             </thead>
@@ -48,7 +47,7 @@ const CartSummary = ({ cartItems, handleQuantityChange, removeItemFromCart, calc
       )}
       {cartItems.length > 0 && (
         <>
-          <Typography variant="h6" gutterBottom>Total: ${calculateTotal()}</Typography>
+          <Typography variant="h6" gutterBottom>SubTotal: ${calculateTotal()}</Typography>
           <Button onClick={handleNextStep} variant="contained" color="primary">Realizar pedido</Button>
         </>
       )}
