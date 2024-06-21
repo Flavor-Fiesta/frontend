@@ -9,7 +9,7 @@ const RecipeCardContainer = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('/recipes.json') // Ruta del archivo JSON en la carpeta public
+    fetch('/recipes.json') 
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -43,6 +43,7 @@ const RecipeCardContainer = () => {
          {recipes.map((recipe, index) => (
         <RecipeCard
           key={recipe.id}
+          id={recipe.id} 
           image={recipe.image}
           title={recipe.title}
           subtitle={recipe.subtitle}

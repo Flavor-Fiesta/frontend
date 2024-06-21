@@ -20,6 +20,7 @@ import Store from './component/store/store';
 import Categoria from './component/categoria/categoria';
 import EditarPerfil from './component/EditarPerfil/EditarPerfil';
 import { ProductProvider } from './component/ProductContext/ProductContext';
+import RecipeDetail from "./component/RecipeCard/RecipeDetail";
 import PrivateRoute from './PrivateRoute';
 
 const AppRoutes = () => {
@@ -32,6 +33,7 @@ const AppRoutes = () => {
       <Routes>
         <Route element={<HeaderContainer />}>
           <Route path="/" element={<Home />} />
+          <Route path="/recipe/:id" element={<RecipeDetail />} />
           <Route path="/product/:productId" element={<ProductDetail />} />
           <Route path="/store" element={<Store />} />
           <Route path="/categoria/:categoriaId" element={<Categoria />} />
