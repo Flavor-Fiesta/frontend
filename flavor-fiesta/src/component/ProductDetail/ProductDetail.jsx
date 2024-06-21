@@ -1,4 +1,4 @@
-import  { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './ProductDetail.css';
@@ -6,6 +6,7 @@ import Carousel from '../Carousel/Carousel';
 import { CartContext } from '../CartContext/CartContext';
 import { AuthContext } from '../AuthContext/AuthContext';
 import { OrderContext } from '../OrderContext/OrderContext';
+import API_BASE_URL from "../../config";
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
 
 const ProductDetail = () => {
@@ -17,11 +18,10 @@ const ProductDetail = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const { addItemToCart } = useContext(CartContext);
   const navigate = useNavigate();
-
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/productos/${productId}`);
+        const response = await axios.get(`${API_BASE_URL}/productos/${productId}`);
         setProduct(response.data.data);
       } catch (error) {
         console.error('Error fetching the product data', error);
@@ -33,14 +33,14 @@ const ProductDetail = () => {
 
   const createOrder = async () => {
     try {
-      const response = await axios.post('http://localhost:8080/ordenes/crear', {
+      const response = await axios.post(`${API_BASE_URL}/ordenes/crear`, {
         id_usuario: usuario.id,
         id_estado: 1, // Assuming 1 is the default state for a new order
         fechaOrden: new Date().toISOString(),
         total: 0
       });
-      orden({success: true});
-      return response;
+      response.data.success = true
+      return response.data;
     } catch (error) {
       console.error('Error creating order', error);
       return null;
@@ -49,7 +49,7 @@ const ProductDetail = () => {
 
   const createOrderProduct = async (orderId) => {
     try {
-      const response = await axios.post('http://localhost:8080/ordenProductos/crear', {
+      const response = await axios.post(`${API_BASE_URL}/ordenProductos/crear`, {
         id_orden: orderId,
         id_producto: product.id,
         total: product.precio * quantity,
@@ -69,16 +69,15 @@ const ProductDetail = () => {
       if (!orden.success) {
         const newOrder = await createOrder();
         console.log(newOrder)
-        if (newOrder) {
-          console.log(newOrder.id);
-          const newOrderProduct = await createOrderProduct(newOrder.id);
+        if (orden.success) {
+          console.log(orden.usuario.id);
+          const newOrderProduct = await createOrderProduct(orden.usuario.id);
           if (newOrderProduct) {
             console.log('Order and order products created successfully');
           }
           setTriggerFetch(prev => !prev);
         }
       } else {
-        console.log(orden)
         const newOrderProduct = await createOrderProduct(orden.usuario.id);
         if (newOrderProduct) {
           console.log('Order product added successfully to the existing order');

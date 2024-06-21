@@ -1,4 +1,4 @@
-import  { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from '../../AuthContext/AuthContext';
 import { CartContext } from '../../CartContext/CartContext';
@@ -32,7 +32,6 @@ const HeaderLayout = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [show, setShow] = useState(false);
   const [showUserActions, setShowUserActions] = useState(false);
-
 
   const handleClick = () => {
     console.log("Mostrar / Ocultar elemento", !show);
@@ -113,7 +112,7 @@ const HeaderLayout = () => {
       )}
       <Box className="user-actions">
         <img src={SearchIcon} alt="Buscar" className="actionIcon" onClick={handleClick} />
-        {show && <Search />}
+        {show && <Search onClose={handleClick} />}
         {!show && (
         <>
         <DarkModeToggle />

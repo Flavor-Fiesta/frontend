@@ -1,7 +1,8 @@
-import  { useState } from 'react';
+import React, { useState } from 'react';
 import 'react-credit-cards/es/styles-compiled.css';
 import CreditCard from 'react-credit-cards';
 import { TextField, Grid, Typography, Button, Dialog, DialogContent, DialogActions } from '@mui/material';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';

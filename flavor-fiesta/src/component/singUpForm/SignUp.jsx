@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Img from "../../assets/chris-lee-70l1tDAI6rM-unsplash 1.jpg";
 import "./SignUp.css";

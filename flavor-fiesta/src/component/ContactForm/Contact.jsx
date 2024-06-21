@@ -1,3 +1,4 @@
+import React from 'react';
 import ContactForm from './ContactForm';
 import './Contact.css';
 import logoo from '../../assets/logoo.png';
